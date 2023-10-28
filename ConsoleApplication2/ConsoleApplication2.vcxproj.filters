@@ -78,6 +78,9 @@
     <ClCompile Include="operation_not_supported.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
+    <ClCompile Include="allocator_border_descriptors.cpp">
+      <Filter>Исходные файлы</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allocator.h">
@@ -250,6 +253,9 @@
     </ClInclude>
     <ClInclude Include="nlohmann\detail\conversions\to_json.hpp">
       <Filter>Файлы заголовков\nlohmann\detail\conversions</Filter>
+    </ClInclude>
+    <ClInclude Include="allocator_border_descriptors.h">
+      <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,4 +1,7 @@
-﻿  logger.cpp
-  operation_not_supported.cpp
+﻿  ConsoleApplication2.cpp
+C:\Users\baran\source\repos\ConsoleApplication3\ConsoleApplication2\ConsoleApplication2.cpp(62,47): warning C4101: ex: неиспользованная локальная переменная
+C:\Users\baran\source\repos\ConsoleApplication3\ConsoleApplication2\ConsoleApplication2.cpp(90,47): warning C4101: ex: неиспользованная локальная переменная
+  allocator_border_descriptors.cpp
+C:\Users\baran\source\repos\ConsoleApplication3\ConsoleApplication2\allocator_border_descriptors.cpp(150,40): warning C4018: <: несоответствие типов со знаком и без знака
   Создание кода...
-  ConsoleApplication2.vcxproj -> C:\Users\baran\source\repos\ConsoleApplication2\x64\Debug\ConsoleApplication2.exe
+  ConsoleApplication2.vcxproj -> C:\Users\baran\source\repos\ConsoleApplication3\x64\Debug\ConsoleApplication2.exe

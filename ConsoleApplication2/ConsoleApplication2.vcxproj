@@ -128,6 +128,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="allocator.cpp" />
+    <ClCompile Include="allocator_border_descriptors.cpp" />
     <ClCompile Include="allocator_holder.cpp" />
     <ClCompile Include="allocator_sorted_list.cpp" />
     <ClCompile Include="ConsoleApplication2.cpp" />
@@ -141,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="allocator.h" />
+    <ClInclude Include="allocator_border_descriptors.h" />
     <ClInclude Include="allocator_fit_allocation.h" />
     <ClInclude Include="allocator_holder.h" />
     <ClInclude Include="allocator_sorted_list.h" />

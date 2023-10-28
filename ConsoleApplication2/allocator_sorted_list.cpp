@@ -285,10 +285,11 @@ void allocator_sorted_list::deallocate(
     // TODO: check if memory was allocated from current allocator
     block_to_deallocate_address = reinterpret_cast<void *>(reinterpret_cast<size_t *>(block_to_deallocate_address) - 1);
 
+    //сбросить занятый блок перед освобождением
     dump_occupied_block_before_deallocate(block_to_deallocate_address, get_logger());
 
-    auto block_to_deallocate_size = get_occupied_block_size(block_to_deallocate_address);
-    auto *current_available_block = get_first_available_block_address();
+    auto block_to_deallocate_size = get_occupied_block_size(block_to_deallocate_address); //блок для освобождения размера
+    auto *current_available_block = get_first_available_block_address(); //текущий доступный блок
 
     if (current_available_block == nullptr)
     {
