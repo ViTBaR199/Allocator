@@ -1,16 +1,29 @@
-[TRACE][28.10.2023 19:29:57] allocator_border_descriptors allocator instance construction started
-[DEBUG][28.10.2023 19:29:57] requested memory size: 1200 bytes
-[TRACE][28.10.2023 19:29:57] allocator_border_descriptors allocator instance construction finished
-[TRACE][28.10.2023 19:29:57] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution started
-[DEBUG][28.10.2023 19:29:57] Requested 900 bytes of memory
-[TRACE][28.10.2023 19:29:57] Allocated block placed at 000001A2F216C980
-[TRACE][28.10.2023 19:29:57] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution finished
-[DEBUG][28.10.2023 19:29:57] After `allocate` for 900 bytes (addr == 000001A2F216C978):
-[DEBUG][28.10.2023 19:29:57] Memory state: |occ 908|avl 292|
-[TRACE][28.10.2023 19:29:57] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution started
-[DEBUG][28.10.2023 19:29:57] Requested 100 bytes of memory
-[TRACE][28.10.2023 19:29:57] Allocated block placed at 000001A2F216CD0C
-[TRACE][28.10.2023 19:29:57] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution finished
-[DEBUG][28.10.2023 19:29:57] After `allocate` for 100 bytes (addr == 000001A2F216CD04):
-[DEBUG][28.10.2023 19:29:57] Memory state: |occ 908|occ 108|avl 184|
-[TRACE][28.10.2023 19:29:57] allocator_border_descriptors::deallocate(void *block_to_deallocate_address) execution started
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors allocator instance construction started
+[DEBUG][29.10.2023 14:57:02] requested memory size: 1200 bytes
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors allocator instance construction finished
+[TRACE][29.10.2023 14:57:02] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution started
+[DEBUG][29.10.2023 14:57:02] Requested 900 bytes of memory
+[TRACE][29.10.2023 14:57:02] Allocated block placed at 00000188E1C10000
+[TRACE][29.10.2023 14:57:02] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution finished
+[DEBUG][29.10.2023 14:57:02] After `allocate` for 900 bytes (addr == 00000188E1C0FFF8):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 908|avl 292|
+[TRACE][29.10.2023 14:57:02] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution started
+[DEBUG][29.10.2023 14:57:02] Requested 100 bytes of memory
+[TRACE][29.10.2023 14:57:02] Allocated block placed at 00000188E1C1038C
+[TRACE][29.10.2023 14:57:02] Method `void *allocator_border_descriptors::allocate(size_t requested_block_size)` execution finished
+[DEBUG][29.10.2023 14:57:02] After `allocate` for 100 bytes (addr == 00000188E1C10384):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 908|occ 108|avl 184|
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate(void *block_to_deallocate_address) execution started
+[DEBUG][29.10.2023 14:57:02] After `deallocate` (addr == 00000188E1C10000):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 1916|
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate method execution finished
+[DEBUG][29.10.2023 14:57:02] After `deallocate` (addr == 00000188E1C10000):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 1916|
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate method execution finished
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate(void *block_to_deallocate_address) execution started
+[DEBUG][29.10.2023 14:57:02] After `deallocate` (addr == 00000188E1C1038C):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 1916|
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate method execution finished
+[DEBUG][29.10.2023 14:57:02] After `deallocate` (addr == 00000188E1C1038C):
+[DEBUG][29.10.2023 14:57:02] Memory state: |occ 1916|
+[TRACE][29.10.2023 14:57:02] allocator_border_descriptors::deallocate method execution finished

@@ -284,44 +284,116 @@ void allocator_border_descriptors::deallocate(void* block_to_deallocate_address)
     size_t block_size = *before_the_block_to_deallocate_size;
 
     //переводим вв char*, так как такой указатель занимает 1 байт. Это позволяет точно управлять смещениями в памяти
-    auto* previous_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) - sizeof(size_t)); //указатель на предыдущий блок
-    auto* next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + block_size);//указатель на следующий блок
-
-    //проверка на свободен/занят
-    bool previous_block_free = (*previous_block_descriptor & 1) == 0;
-    bool next_block_free = (*next_block_descriptor & 1) == 0;
+    //auto* previous_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) - sizeof(size_t)); //указатель на предыдущий блок
+    //auto* next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + block_size);//указатель на следующий блок
 
     //указатель на следующий блок
-    *before_the_block_to_deallocate_size = block_size;
+    void** next_block = reinterpret_cast<void**>(reinterpret_cast<size_t*>(block_to_deallocate_address) + 1);
 
-    if (previous_block_free && next_block_free) {
-        //объединение если левый и правый блок свободен
-        size_t prev_block_size = *(previous_block_descriptor - 1);
-        size_t next_block_size = *next_block_descriptor;
+    //указатель на предыдущий блок
+    void* previous_block = nullptr;
+    auto* current_block = get_first_available_block_address();
 
-        //объединение
-        *previous_block_descriptor = prev_block_size + block_size + next_block_size + 2 * sizeof(size_t);
+    while (current_block < block_to_deallocate_address && current_block != nullptr) {
 
-        auto* new_next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + prev_block_size);
-        *new_next_block_descriptor = *previous_block_descriptor;
+        previous_block = current_block;
+        current_block = get_available_block_next_available_block_address(current_block);
+
+        /*size_t current_block_size = *reinterpret_cast<size_t*>(current_block);
+        previous_block = current_block;
+
+        current_block = reinterpret_cast<void*>(reinterpret_cast<size_t*>(current_block) + current_block_size);*/
     }
 
-    else if (previous_block_free) {
-        //объединение если только предыдущий свободен блок
-        size_t prev_block_size = *(previous_block_descriptor - 1);
 
-        //объединение
-        *previous_block_descriptor = prev_block_size + block_size + sizeof(size_t);
-
-        auto* new_next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + prev_block_size);
-        *new_next_block_descriptor = *previous_block_descriptor;
+    if (previous_block == nullptr) {
+        *get_first_available_block_address_address() = block_to_deallocate_address;
     }
-    else if (next_block_free) {
-        //объединение если свободен только следующий блок
-        size_t next_block_size = *next_block_descriptor;
-
-        *before_the_block_to_deallocate_size = block_size + next_block_size + sizeof(size_t);
+    else {
+        *reinterpret_cast<void**>(reinterpret_cast<size_t*>(previous_block) + 1) = block_to_deallocate_address;
     }
+
+
+    // Аналогичные действия для следующего блока
+    if (current_block == nullptr) {
+        *before_the_block_to_deallocate_size = block_size;
+        *next_block = nullptr;
+    }
+    else {
+        size_t new_block_size = block_size + static_cast<size_t>((reinterpret_cast<unsigned char*>(current_block) - reinterpret_cast<unsigned char*>(block_to_deallocate_address)));
+        *before_the_block_to_deallocate_size = new_block_size;
+        *next_block = reinterpret_cast<void*>(reinterpret_cast<size_t*>(block_to_deallocate_address) + 1 + new_block_size / sizeof(size_t));
+    }
+
+
+
+
+
+
+
+
+    //if (previous_block == nullptr) {
+    //    *get_first_available_block_address_address() = block_to_deallocate_address;
+    //}
+    //else {
+    //    *reinterpret_cast<void**>(reinterpret_cast<size_t*>(previous_block) + 1) = block_to_deallocate_address;
+    //}
+
+    //if (current_block == nullptr) {
+
+    //    /*size_t new_size = *reinterpret_cast<size_t*>(previous_block) + block_size;
+    //    *reinterpret_cast<size_t*>(previous_block) = new_size;
+
+    //    void* next_block_after_merge = reinterpret_cast<void*>(reinterpret_cast<size_t*>(previous_block) + new_size);*/
+    //    *before_the_block_to_deallocate_size = block_size;
+    //    *next_block = nullptr;
+    //}
+    //else {
+    //    size_t new_size = reinterpret_cast<size_t>(current_block) + block_size;
+    //    *before_the_block_to_deallocate_size = new_size;
+
+    //    *next_block = reinterpret_cast<void*>(reinterpret_cast<size_t*>(block_to_deallocate_address) + new_size);
+    //}
+
+
+
+
+
+    ////проверка на свободен/занят
+    //bool previous_block_free = (*previous_block_descriptor & 1) == 0;
+    //bool next_block_free = (*next_block_descriptor & 1) == 0;
+
+    ////указатель на следующий блок
+    //*before_the_block_to_deallocate_size = block_size;
+
+    //if (previous_block_free && next_block_free) {
+    //    //объединение если левый и правый блок свободен
+    //    size_t prev_block_size = *(previous_block_descriptor - 1);
+    //    size_t next_block_size = *next_block_descriptor;
+
+    //    //объединение
+    //    *previous_block_descriptor = prev_block_size + block_size + next_block_size + 2 * sizeof(size_t);
+
+    //    auto* new_next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + prev_block_size);
+    //    *new_next_block_descriptor = *previous_block_descriptor;
+    //}
+
+    //else if (previous_block_free) {
+    //    //объединение если только предыдущий свободен блок
+    //    size_t prev_block_size = *(previous_block_descriptor - 1);
+
+    //    //объединение
+    //    *previous_block_descriptor = prev_block_size + block_size + sizeof(size_t);
+
+    //    auto* new_next_block_descriptor = reinterpret_cast<size_t*>(reinterpret_cast<char*>(block_to_deallocate_address) + prev_block_size);
+    //    *new_next_block_descriptor = *previous_block_descriptor;
+    //}
+    //else if (next_block_free) {
+    //    //объединение если свободен только следующий блок
+    //    size_t next_block_size = *next_block_descriptor;
+
+    //    *before_the_block_to_deallocate_size = block_size + next_block_size + sizeof(size_t);
+    //}
 
     this->debug_with_guard("After `deallocate` (addr == " + address_to_hex(block_to_deallocate_address) + "):");
     dump_trusted_memory_blocks_state();
